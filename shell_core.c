@@ -1,19 +1,20 @@
 #include "shell.h"
 
-void execute_shell(int *ctrl_hsh, int *exit_code, int *hsh_sh_calls)
+void execute_shell(int *hsh_sh_calls)
 {
-	char *line = hsh_read_line(&ctrl_hsh);
-	char **cmds_args = hsh_parse_line(line);
+	int cmd_count = 0;
+	char *line = hsh_read_line();
+	char **cmds_args = hsh_parse_line(line, &cmd_count);
 	
-	(void)exit_code;
-	(void)hsh_sh_calls;
+	/*free(line);*/
+	*hsh_sh_calls += 1;
 
 	if (cmds_args[0] != NULL)
 	{
 		exec_command(cmds_args);
 	}
 
-	free(cmds_args);
+	free_array(cmds_args, cmd_count);
 	free(line);
 }
 

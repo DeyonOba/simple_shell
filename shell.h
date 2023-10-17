@@ -29,10 +29,12 @@ void number_to_string(int number, int fd);
 int string_to_number(char *string);
 int num_str_flags(const char *format);
 
-char *hsh_read_line(int **ctrl_hsh);
-char **hsh_parse_line(char *line);
+char *hsh_read_line(void);
+char **hsh_parse_line(char *line, int *cmd_count);
 
-void execute_shell(int *ctrl_hsh, int *exit_code, int *hsh_sh_calls);
+void execute_shell(int *hsh_sh_calls);
 void exec_command(char **cmds);
+
+void free_array(char **array, int array_count);
 
 #endif

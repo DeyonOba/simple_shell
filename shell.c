@@ -3,26 +3,24 @@
 
 int main(int argc, char **argv, char **env)
 {
-	int CTRL_HSH = 1, exit_code = EXIT_SUCCESS, hsh_num_calls = 0;
+	int hsh_num_calls = 0;
 
 	/* void cast the main prototypes*/
 	(void)(argc);
 	(void)(argv);
 	(void)(env);
 
-	if (isatty(STDIN_FILENO))
+	while (1)
 	{
-		while (CTRL_HSH)
+		if (isatty(STDIN_FILENO))
 		{
 			prompt();
 			fflush(stdout);
-
-			execute_shell(&CTRL_HSH, &exit_code, &hsh_num_calls);
+			
+			execute_shell(&hsh_num_calls);
 		}
+		else
+			execute_shell(&hsh_num_calls);
 	}
-	else
-	{
-		execute_shell(&CTRL_HSH, &exit_code, &hsh_num_calls);
-	}
-	return (exit_code);
+	return (EXIT_SUCCESS);
 }
