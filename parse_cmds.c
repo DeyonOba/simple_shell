@@ -36,7 +36,8 @@ char **hsh_parse_str(char *line, int *args_count, char *sep)
 {
 	int  MAX_CMDS = 10;
 	char *token = strtok(line, sep);
-	char **cmds_args = malloc(MAX_CMDS * sizeof(char *));
+	char **cmds_args = malloc((MAX_CMDS + 1) * sizeof(char *));
+	char **new_cmds_args = NULL;
 
 	if (cmds_args == NULL)
 		return (NULL);
@@ -49,14 +50,19 @@ char **hsh_parse_str(char *line, int *args_count, char *sep)
 		if (*args_count >= MAX_CMDS)
 		{
 			MAX_CMDS += 5;
-			cmds_args = realloc(cmds_args, MAX_CMDS * sizeof(char *));
+			new_cmds_args = _realloc(cmds_args, MAX_CMDS * sizeof(char *));
 
-			if (cmds_args == NULL)
+			if (new_cmds_args == NULL)
+			{
+				free_array(cmds_args, *args_count);
 				return (NULL);
+			}
+			cmds_args = new_cmds_args;
 		}
 
 		token = strtok(NULL, sep);
 	}
+	cmds_args[*args_count] = NULL;
 
 	return (cmds_args);
 }
