@@ -10,7 +10,12 @@
  */
 void command_error(char *file_name, int sh_call_num, char *command)
 {
-	_dprintf(STDERR_FILENO, "%s: %d: %s: not found\n", file_name, sh_call_num, command);
+	_dprintf(
+			STDERR_FILENO,
+			"%s: %d: %s: not found\n",
+			file_name, sh_call_num,
+			command
+		);
 }
 
 /**

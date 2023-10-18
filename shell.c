@@ -1,6 +1,13 @@
 #include "shell.h"
 
-
+/**
+ * main - Shell Entry point
+ * @argc: Argument count
+ * @argv: Argument vector
+ * @env: Environment
+ *
+ * Return: Sucess or Exit with error
+ */
 int main(int argc, char **argv, char **env)
 {
 	int hsh_num_calls = 0;
@@ -16,7 +23,7 @@ int main(int argc, char **argv, char **env)
 		{
 			prompt();
 			fflush(stdout);
-			
+
 			execute_shell(&hsh_num_calls);
 		}
 		else
@@ -24,3 +31,4 @@ int main(int argc, char **argv, char **env)
 	}
 	return (EXIT_SUCCESS);
 }
+

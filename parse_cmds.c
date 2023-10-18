@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * hsh_read_line - Reads line form stdin
+ *
+ * Return: line
+ */
 char *hsh_read_line(void)
 {
 	char *line = NULL;
@@ -19,25 +24,38 @@ char *hsh_read_line(void)
 	return (line);
 }
 
-char **hsh_parse_line(char *line, int *cmd_count)
+/**
+ * hsh_parse_str - Parse string by a specified seperator
+ * @line: Input string of a line from stdin
+ * @args_count: Number of arguments parsed
+ * @sep: Seperator or Delimeter
+ *
+ * Return: Dynamically allocated array of strings or NULL on failure
+ */
+char **hsh_parse_str(char *line, int *args_count, char *sep)
 {
 	int  MAX_CMDS = 10;
+	char *token = strtok(line, sep);
 	char **cmds_args = malloc(MAX_CMDS * sizeof(char *));
-	char *whitespace = " \n\t\r";
-	char *token = strtok(line, whitespace);
+
+	if (cmds_args == NULL)
+		return (NULL);
 
 	while (token != NULL)
 	{
-		cmds_args[*cmd_count] = strdup(token);
-		*cmd_count += 1;
+		cmds_args[*args_count] = strdup(token);
+		*args_count += 1;
 
-		if (*cmd_count >= MAX_CMDS)
+		if (*args_count >= MAX_CMDS)
 		{
 			MAX_CMDS += 5;
 			cmds_args = realloc(cmds_args, MAX_CMDS * sizeof(char *));
+
+			if (cmds_args == NULL)
+				return (NULL);
 		}
 
-		token = strtok(NULL, whitespace);
+		token = strtok(NULL, sep);
 	}
 
 	return (cmds_args);
