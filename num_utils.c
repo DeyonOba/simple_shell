@@ -48,6 +48,7 @@ int digit_to_char(int number)
 /**
  * number_to_string - Converts number to string
  * @number: Integer
+ * @fd: File descriptor
  *
  * Return: String
  */
