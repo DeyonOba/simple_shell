@@ -36,5 +36,6 @@ void execute_shell(int *hsh_sh_calls);
 void exec_command(char **cmds);
 
 void free_array(char **array, int array_count);
+void *_realloc(void *ptr, size_t size);
 
 #endif
