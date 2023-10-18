@@ -30,7 +30,7 @@ int string_to_number(char *string);
 int num_str_flags(const char *format);
 
 char *hsh_read_line(void);
-char **hsh_parse_line(char *line, int *cmd_count);
+char **hsh_parse_str(char *line, int *args_count, char *sep);
 
 void execute_shell(int *hsh_sh_calls);
 void exec_command(char **cmds);
