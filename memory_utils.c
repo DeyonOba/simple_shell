@@ -16,6 +16,13 @@ void free_array(char **array, int array_count)
 	free(array);
 }
 
+/**
+ * _realloc - Reallocate dynamically allocate memory
+ * @ptr: Void pointer to dynamically allocate memory
+ * @size: Size of the block of memory in bytes
+ *
+ * Return: Void pointer to newly allocate memory
+ */
 void *_realloc(void *ptr, size_t size)
 {
 	void *rptr;
