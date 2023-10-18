@@ -1,11 +1,15 @@
 #include "shell.h"
 
+/**
+ * execute_shell - Execute Shell
+ * @hsh_sh_calls: Number of Shell calls
+ */
 void execute_shell(int *hsh_sh_calls)
 {
 	int cmd_count = 0;
 	char *line = hsh_read_line();
-	char **cmds_args = hsh_parse_line(line, &cmd_count);
-	
+	char **cmds_args = hsh_parse_str(line, &cmd_count, " \n\t\r");
+
 	/*free(line);*/
 	*hsh_sh_calls += 1;
 
@@ -18,6 +22,10 @@ void execute_shell(int *hsh_sh_calls)
 	free(line);
 }
 
+/**
+ * exec_command - Execute commands
+ * @cmds: Array of arguments
+ */
 void exec_command(char **cmds)
 {
 	pid_t pid = fork();
@@ -37,6 +45,7 @@ void exec_command(char **cmds)
 	else
 	{
 		int status;
+
 		waitpid(pid, &status, 0); /* wait for the child process to end*/
 
 		if (WIFEXITED(status))
