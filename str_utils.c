@@ -40,6 +40,13 @@ void prompt(void)
 	_print(alert, 1);
 }
 
+/**
+ * _dprintf - Display a formated string to file descriptor
+ * @fd: File descriptor
+ * @format: Specified string format
+ *
+ * Return: Number of character displayed
+ */
 int _dprintf(int fd, const char *format, ...)
 {
 	int f_index = 0, num;
@@ -53,14 +60,14 @@ int _dprintf(int fd, const char *format, ...)
 	{
 		if (format[f_index] == '%')
 		{
-			if (format[f_index+1] == 'd')
+			if (format[f_index + 1] == 'd')
 			{
 				num = va_arg(args, int);
 				number_to_string(num, fd);
 				f_index += 2;
 				continue;
 			}
-			else if (format[f_index+1] == 's')
+			else if (format[f_index + 1] == 's')
 			{
 				string = va_arg(args, char*);
 				_print(string, fd);
@@ -82,6 +89,12 @@ int _dprintf(int fd, const char *format, ...)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * num_str_flags - Counts the number of flags in a string
+ * @format: String
+ *
+ * Return: Number of format flag
+ */
 int num_str_flags(const char *format)
 {
 	int i, count = 0;
