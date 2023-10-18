@@ -1,19 +1,26 @@
 #include "shell.h"
 
-/**
- * main - Execute Shell
- *
- * @argc: Argument count
- * @argv: Argument vector
- * @env: Environment
- *
- * Return: Integer
- */
+
 int main(int argc, char **argv, char **env)
 {
-	(void)argc;
-	if (isatty(STDIN_FILENO))
-		return (interactive_mode(argv[0], env));
+	int hsh_num_calls = 0;
 
-	return (non_interactive_mode(argv[0], env));
+	/* void cast the main prototypes*/
+	(void)(argc);
+	(void)(argv);
+	(void)(env);
+
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+		{
+			prompt();
+			fflush(stdout);
+			
+			execute_shell(&hsh_num_calls);
+		}
+		else
+			execute_shell(&hsh_num_calls);
+	}
+	return (EXIT_SUCCESS);
 }

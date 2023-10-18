@@ -18,10 +18,6 @@ void _print(char *string, int file_descriptor);
 void prompt(void);
 int _dprintf(int fd, const char *format, ...);
 
-char **arg_parser(char *input, int *arg_count, char *seperator);
-int shell_read_line(char **commands);
-void exec_command(char *pathname, char **args, char **environ);
-
 void command_error(char *file_name, int sh_call_num, char *command);
 void default_error(char *file_name, int sh_call_num, char *command);
 void file_error(char *file_name, int sh_call_num, char *command);
@@ -33,16 +29,12 @@ void number_to_string(int number, int fd);
 int string_to_number(char *string);
 int num_str_flags(const char *format);
 
-char **get_path_dir(char **env);
-char *get_file_path(char *command, char **env);
+char *hsh_read_line(void);
+char **hsh_parse_line(char *line, int *cmd_count);
 
-int exit_code(char **commands, int word_count);
-void free_array(char **array);
+void execute_shell(int *hsh_sh_calls);
+void exec_command(char **cmds);
 
-int interactive_mode(char *filename, char **env);
-int non_interactive(void);
-int non_interactive_mode(char *file_name, char **env);
-int shell_cpu(char *file_name, char **env, int *num_hsh_calls);
-
+void free_array(char **array, int array_count);
 
 #endif
