@@ -5,13 +5,14 @@
  * @hsh_sh_calls: Number of Shell calls
  * @env: Environment
  */
-void execute_shell(int *hsh_sh_calls, char **env)
+void execute_shell(int *hsh_sh_calls, char *file_name, char **env)
 {
 	int cmd_count = 0;
 	char *line = hsh_read_line();
 	char **cmds_args = hsh_parse_str(line, &cmd_count, " \n\t\r");
 
 	/*free(line);*/
+	(void)file_name;
 	*hsh_sh_calls += 1;
 
 	if (cmds_args[0] != NULL)
@@ -36,8 +37,7 @@ void exec_command(char **cmds, char **env)
 	{
 		if (execve(cmds[0], cmds, env) == -1)
 		{
-			perror("execve Failed");
-			exit(1);
+			perror(cmds[0]);
 		}
 	}
 	else if (pid < 0)
