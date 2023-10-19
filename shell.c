@@ -15,7 +15,6 @@ int main(int argc, char **argv, char **env)
 	/* void cast the main prototypes*/
 	(void)(argc);
 	(void)(argv);
-	(void)(env);
 
 	while (1)
 	{
@@ -24,10 +23,10 @@ int main(int argc, char **argv, char **env)
 			prompt();
 			fflush(stdout);
 
-			execute_shell(&hsh_num_calls);
+			execute_shell(&hsh_num_calls, env);
 		}
 		else
-			execute_shell(&hsh_num_calls);
+			execute_shell(&hsh_num_calls, env);
 	}
 	return (EXIT_SUCCESS);
 }

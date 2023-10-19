@@ -3,3 +3,4 @@ hsh
 TEST_SUITE
 *.bash
 *.txt
+allowed_functions

@@ -32,8 +32,8 @@ int num_str_flags(const char *format);
 char *hsh_read_line(void);
 char **hsh_parse_str(char *line, int *args_count, char *sep);
 
-void execute_shell(int *hsh_sh_calls);
-void exec_command(char **cmds);
+void execute_shell(int *hsh_sh_calls, char **env);
+void exec_command(char **cmds, char **env);
 
 void free_array(char **array, int array_count);
 void *_realloc(void *ptr, size_t size);

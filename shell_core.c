@@ -3,8 +3,9 @@
 /**
  * execute_shell - Execute Shell
  * @hsh_sh_calls: Number of Shell calls
+ * @env: Environment
  */
-void execute_shell(int *hsh_sh_calls)
+void execute_shell(int *hsh_sh_calls, char **env)
 {
 	int cmd_count = 0;
 	char *line = hsh_read_line();
@@ -15,7 +16,7 @@ void execute_shell(int *hsh_sh_calls)
 
 	if (cmds_args[0] != NULL)
 	{
-		exec_command(cmds_args);
+		exec_command(cmds_args, env);
 	}
 
 	free_array(cmds_args, cmd_count);
@@ -25,14 +26,15 @@ void execute_shell(int *hsh_sh_calls)
 /**
  * exec_command - Execute commands
  * @cmds: Array of arguments
+ * @env: Environment
  */
-void exec_command(char **cmds)
+void exec_command(char **cmds, char **env)
 {
 	pid_t pid = fork();
 
 	if (pid == 0)
 	{
-		if (execve(cmds[0], cmds, NULL) == -1)
+		if (execve(cmds[0], cmds, env) == -1)
 		{
 			perror("execve Failed");
 			exit(1);
