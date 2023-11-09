@@ -10,10 +10,11 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	int hsh_num_calls = 0;
+	int exit_status = EXIT_SUCCESS, num_shell_calls = 0;
+	size_t size = 0;
+	char *line = NULL;
 
-	/* void cast the main prototypes*/
-	(void)(argc);
+	(void)argc;
 
 	while (1)
 	{
@@ -21,12 +22,16 @@ int main(int argc, char **argv, char **env)
 		{
 			prompt();
 			fflush(stdout);
-
-			execute_shell(&hsh_num_calls, argv[0], env);
 		}
-		else
-			execute_shell(&hsh_num_calls, argv[0], env);
+
+		if (getline(&line, &size, stdin) == -1)
+			break;
+
+		execute_shell(line, &num_shell_calls, argv[0], env);
+		free(line);
+		line = NULL;
 	}
-	return (EXIT_SUCCESS);
+	free(line);
+	return (exit_status);
 }
 

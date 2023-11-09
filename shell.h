@@ -18,9 +18,9 @@ void _print(char *string, int file_descriptor);
 void prompt(void);
 int _dprintf(int fd, const char *format, ...);
 
-void command_error(char *file_name, int sh_call_num, char *command);
-void default_error(char *file_name, int sh_call_num, char *command);
-void file_error(char *file_name, int sh_call_num, char *command);
+void command_error(char *file_name, int num_shell_calls, char *command);
+void default_error(char *file_name, int num_shell_calls, char *command);
+void file_error(char *file_name, int num_shell_calls, char *command);
 
 int digit_count(int number);
 int _power(int digit_count);
@@ -29,11 +29,10 @@ void number_to_string(int number, int fd);
 int string_to_number(char *string);
 int num_str_flags(const char *format);
 
-char *hsh_read_line(void);
 char **hsh_parse_str(char *line, int *args_count, char *sep);
 
-void execute_shell(int *hsh_sh_calls, char *file_name, char **env);
-void exec_command(char **cmds, char *file_name, int hsh_sh_calls, char **env);
+void execute_shell(char *line, int *num_shell_calls, char *file_name, char **env);
+void exec_command(char **cmds, char *file_name, int num_shell_calls, char **env);
 
 void free_array(char **array, int array_count);
 void *_realloc(void *ptr, size_t size);

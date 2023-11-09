@@ -1,30 +1,6 @@
 #include "shell.h"
 
 /**
- * hsh_read_line - Reads line form stdin
- *
- * Return: line
- */
-char *hsh_read_line(void)
-{
-	char *line = NULL;
-	size_t size = 0;
-
-	if (getline(&line, &size, stdin) == -1)
-	{
-		if (feof(stdin))
-		{
-			free(line);
-			/*_print("\n", 1);*/
-			exit(1);
-		}
-		else
-			perror("Read Line Failed");
-	}
-	return (line);
-}
-
-/**
  * hsh_parse_str - Parse string by a specified seperator
  * @line: Input string of a line from stdin
  * @args_count: Number of arguments parsed
