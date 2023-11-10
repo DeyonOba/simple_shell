@@ -30,7 +30,7 @@ char **hsh_parse_str(char *line, int *args_count, char *sep)
 
 			if (new_cmds_args == NULL)
 			{
-				free_array(cmds_args, *args_count);
+				free_array(cmds_args);
 				return (NULL);
 			}
 			cmds_args = new_cmds_args;
