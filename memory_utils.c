@@ -5,11 +5,11 @@
  * @array: Array
  * @array_count: Number of elements in array
  */
-void free_array(char **array, int array_count)
+void free_array(char **array)
 {
 	int i;
 
-	for (i = 0; i < array_count; i++)
+	for (i = 0; array[i] != NULL; i++)
 	{
 		free(array[i]);
 	}
