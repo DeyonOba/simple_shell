@@ -32,9 +32,12 @@ int num_str_flags(const char *format);
 char **hsh_parse_str(char *line, int *args_count, char *sep);
 
 void execute_shell(char *line, int *num_shell_calls, char *file_name, char **env);
-void exec_command(char **cmds, char *file_name, int num_shell_calls, char **env);
+void exec_command(char *file_path, char **cmds,char **env);
 
-void free_array(char **array, int array_count);
+void free_array(char **array);
 void *_realloc(void *ptr, size_t size);
+
+char *_getenv(char **env, char *vname);
+char *_getpath(char *cmd, char **env);
 
 #endif
