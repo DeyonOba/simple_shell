@@ -9,20 +9,17 @@
  */
 char *_getenv(char **env, char *vname)
 {
-	int i;
-	char *token, *value;
-
-	for (i = 0; env[i] != NULL; i++)
+	int i = 0;
+	
+	while (env[i] != NULL)
 	{
-		token = strtok(env[i], "=");
-		if (strcmp(token, vname) == 0)
+		if (strncmp(env[i], vname, strlen(vname)) == 0)
 		{
-			token = strtok(NULL, "=");
-			value = strdup(token);
-
-			return (value);
+			return (env[i] + strlen(vname) + 1);
 		}
+		i += 1;
 	}
+	
 	return (NULL);
 }
 
@@ -35,41 +32,42 @@ char *_getenv(char **env, char *vname)
  */
 char *_getpath(char *cmd, char **env)
 {
-	char *token, *temp_path;
-	char *path = _getenv(env, "PATH");
-	char path_buffer[1024];
+	char *token, *temp_path, *file_path;
+	char *path;
 	struct stat fstatus;
-
-	if (path == NULL)
+	
+	if (stat(cmd, &fstatus) == 0)
 	{
-		return (NULL);
+			file_path = strdup(cmd);
+			if (file_path == NULL)
+				return (NULL);
+			return (file_path);
 	}
-
-	temp_path = strdup(path);
-	free(path);
+	
+	path = _getenv(env, "PATH");
+	if (path == NULL)
+		return (NULL);
+	temp_path = strdup(path);	
+	if (temp_path == NULL)
+		return (NULL);
 
 	token = strtok(temp_path, ":");
-
 	while (token != NULL)
 	{
-		strcpy(path_buffer, token);
+		char path_buffer[1024];
+		strncpy(path_buffer, token, sizeof(path_buffer) - 1);
 		strcat(path_buffer, "/");
 		strcat(path_buffer, cmd);
-
-		if (stat(path_buffer, &fstatus) == 0 && fstatus.st_mode & S_IXUSR)
+		if (stat(path_buffer, &fstatus) == 0)
 		{
 			free(temp_path);
-			return (strdup(path_buffer));
+			file_path = strdup(path_buffer);
+			if (file_path == NULL)
+				return (NULL);
+			return (file_path);
 		}
 		token = strtok(NULL, ":");
 	}
-
 	free(temp_path);
-
-	if (stat(cmd, &fstatus) == 0 && fstatus.st_mode & S_IXUSR)
-	{
-		return (strdup(cmd));
-	}
-
 	return (NULL);
 }
