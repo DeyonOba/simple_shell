@@ -9,7 +9,7 @@
  */
 int _putchar(char c, int fd)
 {
-		write(fd, &c, 1);
+		write(fd, &c, fd);
 
 		return (0);
 }
@@ -37,7 +37,7 @@ void prompt(void)
 {
 	char *alert = "($) ";
 
-	_print(alert, 1);
+	_print(alert, STDOUT_FILENO);
 }
 
 /**
