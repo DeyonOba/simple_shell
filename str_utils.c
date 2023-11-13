@@ -9,7 +9,7 @@
  */
 int _putchar(char c, int fd)
 {
-		write(fd, &c, fd);
+		write(fd, &c, 1);
 
 		return (0);
 }
