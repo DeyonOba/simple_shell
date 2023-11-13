@@ -13,16 +13,24 @@ char *file_name, char **env
 )
 {
 	int cmd_count = 0;
-	char **cmds_args = hsh_parse_str(line, &cmd_count, " \n\t\r");
+	char **cmds_args, *file_path;
 
 	*num_shell_calls += 1;
+	
+	cmds_args = hsh_parse_str(line, &cmd_count, " \n\t\r");
+	file_path = _getpath(cmds_args[0], env);
 
-	if (cmds_args[0] != NULL)
+	if (strcmp(file_path, "") != 0)
 	{
-		exec_command(cmds_args, file_name, *num_shell_calls, env);
+		exec_command(file_path, cmds_args, env);
+		free(file_path);
 	}
-
-	free_array(cmds_args, cmd_count);
+	
+	else
+	{
+		command_error(file_name, *num_shell_calls, cmds_args[0]);
+	}
+	free_array(cmds_args);
 }
 
 /**
@@ -32,18 +40,14 @@ char *file_name, char **env
  * @env: Environment
  * @file_name: File name
  */
-void exec_command(
-char **cmds, char *file_name,
-int num_shell_calls, char **env
-)
+void exec_command(char *file_path, char **cmds, char **env)
 {
 	pid_t pid = fork();
-
 	if (pid == 0)
 	{
-		if (execve(cmds[0], cmds, env) == -1)
+		if (execve(file_path, cmds, env) == -1)
 		{
-			command_error(file_name, num_shell_calls, cmds[0]);
+			perror("Error");
 		}
 	}
 	else if (pid < 0)
