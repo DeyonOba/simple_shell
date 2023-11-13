@@ -40,16 +40,16 @@ char *_getpath(char *cmd, char **env)
 	{
 			file_path = strdup(cmd);
 			if (file_path == NULL)
-				return (NULL);
+				return ("");
 			return (file_path);
 	}
 	
 	path = _getenv(env, "PATH");
 	if (path == NULL)
-		return (NULL);
+		return ("");
 	temp_path = strdup(path);	
 	if (temp_path == NULL)
-		return (NULL);
+		return ("");
 
 	token = strtok(temp_path, ":");
 	while (token != NULL)
@@ -63,11 +63,11 @@ char *_getpath(char *cmd, char **env)
 			free(temp_path);
 			file_path = strdup(path_buffer);
 			if (file_path == NULL)
-				return (NULL);
+				return ("");
 			return (file_path);
 		}
 		token = strtok(NULL, ":");
 	}
 	free(temp_path);
-	return (NULL);
+	return ("");
 }
