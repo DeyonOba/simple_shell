@@ -11,12 +11,13 @@
 int main(int argc, char **argv, char **env)
 {
 	int exit_status = EXIT_SUCCESS, num_shell_calls = 0;
+	int Ctrl_loop = 1;
 	size_t size = 0;
 	char *line = NULL;
 
 	(void)argc;
 
-	while (1)
+	while (Ctrl_loop)
 	{
 		if (isatty(STDIN_FILENO))
 		{
@@ -27,7 +28,10 @@ int main(int argc, char **argv, char **env)
 		if (getline(&line, &size, stdin) == -1)
 			break;
 
-		execute_shell(line, &num_shell_calls, argv[0], env);
+		exit_status = execute_shell(
+			line, &num_shell_calls,
+			argv[0], &Ctrl_loop, env
+			);
 		free(line);
 		line = NULL;
 	}
