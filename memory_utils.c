@@ -2,8 +2,7 @@
 
 /**
  * free_array - Free dynamically allocated array of strings
- * @array: Array
- * @array_count: Number of elements in array
+ * @array: Array of strings
  */
 void free_array(char **array)
 {
