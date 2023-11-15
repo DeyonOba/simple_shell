@@ -19,6 +19,24 @@ void command_error(char *file_name, int num_shell_calls, char *command)
 }
 
 /**
+ * exit_error - Handles exit error
+ * @file_name: File name
+ * @num_shell_calls: Number of shell call (hsh)
+ * @commands: Command string
+ *
+ * Return: Error message
+ */
+void exit_error(char *file_name, int num_shell_calls, char **commands)
+{
+	_dprintf(
+			STDERR_FILENO,
+			"%s: %d: %s: Illegal number: %s\n",
+			file_name, num_shell_calls,
+			commands[0], commands[1]
+	);
+}
+
+/**
  * default_error - Handles error
  * @file_name: File name
  * @num_shell_calls: Number of shell call (hsh)
