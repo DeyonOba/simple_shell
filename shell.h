@@ -21,6 +21,7 @@ int _dprintf(int fd, const char *format, ...);
 void command_error(char *file_name, int num_shell_calls, char *command);
 void default_error(char *file_name, int num_shell_calls, char *command);
 void file_error(char *file_name, int num_shell_calls, char *command);
+void exit_error(char *file_name, int num_shell_calls, char **command);
 
 int digit_count(int number);
 int _power(int digit_count);
@@ -31,13 +32,17 @@ int num_str_flags(const char *format);
 
 char **hsh_parse_str(char *line, int *args_count, char *sep);
 
-void execute_shell(char *line, int *num_shell_calls, char *file_name, char **env);
-void exec_command(char *file_path, char **cmds,char **env);
+int execute_shell(char *line, int *num_shell_calls, char *file_name, int *ctrl_loop, char **env);
+int exec_command(char *file_path, char **cmds, char **env);
 
 void free_array(char **array);
 void *_realloc(void *ptr, size_t size);
 
 char *_getenv(char **env, char *vname);
 char *_getpath(char *cmd, char **env);
+
+int is_numeric(char *string);
+int shell_exit(char *filename, char **cmds_args, int cmd_count, int num_shell_calls, int **ctrl_loop);
+void print_env(char **env);
 
 #endif
