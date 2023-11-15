@@ -10,7 +10,7 @@
 char *_getenv(char **env, char *vname)
 {
 	int i = 0;
-	
+
 	while (env[i] != NULL)
 	{
 		if (strncmp(env[i], vname, strlen(vname)) == 0)
@@ -19,7 +19,7 @@ char *_getenv(char **env, char *vname)
 		}
 		i += 1;
 	}
-	
+
 	return (NULL);
 }
 
@@ -35,19 +35,19 @@ char *_getpath(char *cmd, char **env)
 	char *token, *temp_path, *file_path;
 	char *path;
 	struct stat fstatus;
-	
+
 	if (stat(cmd, &fstatus) == 0)
 	{
-			file_path = strdup(cmd);
-			if (file_path == NULL)
-				return ("");
-			return (file_path);
+		file_path = strdup(cmd);
+		if (file_path == NULL)
+			return ("");
+		return (file_path);
 	}
-	
+
 	path = _getenv(env, "PATH");
 	if (path == NULL)
 		return ("");
-	temp_path = strdup(path);	
+	temp_path = strdup(path);
 	if (temp_path == NULL)
 		return ("");
 
@@ -55,6 +55,7 @@ char *_getpath(char *cmd, char **env)
 	while (token != NULL)
 	{
 		char path_buffer[1024];
+
 		strncpy(path_buffer, token, sizeof(path_buffer) - 1);
 		strcat(path_buffer, "/");
 		strcat(path_buffer, cmd);
