@@ -20,7 +20,13 @@ char *file_name, int *ctrl_loop, char **env
 
 	*num_shell_calls += 1;
 	cmds_args = hsh_parse_str(line, &cmd_count, " \n\t\r");
-
+	
+	if (cmd_count == 0)
+	{
+		free_array(cmds_args);
+		return (EXIT_SUCCESS);
+	}
+	
 	if (strcmp(cmds_args[0], "exit") == 0)
 	{
 		exec_status = shell_exit(
