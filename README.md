@@ -1,6 +1,7 @@
 # simple_shell
 Write a simple UNIX command line interpreter.
 
+![ALX_IMAGE](/images/shell.jpeg)
 ## So what is a simple shell?
 This a command line interface for users to interact with a computer (e.g. Bash, Command prompt, Anaconda prompt e.t.c). My shell works in two modes interactive, and non interactive mode.
 
