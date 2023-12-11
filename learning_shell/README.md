@@ -7,7 +7,7 @@
 **Prototype of the `wait` function:**
 ```c
 #include <sys/types.h>
-#includd <sys/wait.h>
+#include <sys/wait.h>
 
 pid_t wait(int *wstatus)
 ```
